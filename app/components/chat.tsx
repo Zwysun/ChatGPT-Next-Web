@@ -112,6 +112,8 @@ import { MultimodalContent } from "../client/api";
 
 const localStorage = safeLocalStorage();
 
+declare var umami: any;
+
 const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
   loading: () => <LoadingIcon />,
 });
@@ -949,6 +951,8 @@ function _Chat() {
     setPromptHints([]);
     if (!isMobileScreen) inputRef.current?.focus();
     setAutoScroll(true);
+    // umami event track
+    if (typeof umami !== "undefined") umami.track("Click: chat-input-send");
   };
 
   const onPromptSelect = (prompt: RenderPrompt) => {
